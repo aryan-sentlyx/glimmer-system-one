@@ -1,0 +1,54 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; background: #e9e6e0; font-family: 'IBM Plex Sans', sans-serif; color: #1c1a17; }
+    .label { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675f; }
+    #in-name { position: absolute; left: 820px; top: 400px; }
+    #in-name .label { margin-bottom: 18px; }
+    #in-name h1 { font-size: 96px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; white-space: nowrap; }
+    #in-name p { margin-top: 22px; font-size: 38px; font-weight: 500; color: #3d3a35; }
+    #in-name h1 span, #in-name p span { display: inline-block; }
+    #in-theme { position: absolute; left: 820px; top: 360px; width: 1000px; }
+    #in-theme .label { margin-bottom: 18px; }
+    #in-theme h1 { font-size: 120px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.0; }
+    #in-theme h1 span { display: inline-block; }
+    #in-theme p { margin-top: 36px; font-size: 44px; font-weight: 500; line-height: 1.3; color: #3d3a35; max-width: 980px; }
+    #in-theme p b { color: #f0b429; font-weight: 700; }
+    #in-theme p span { display: inline-block; }
+    #in-floor { position: absolute; left: 0; top: 760px; width: 1920px; height: 320px; background: #dedbd4; }
+    #in-floorline { position: absolute; left: 0; top: 760px; width: 1920px; height: 3px; background: #c9c5bc; }
+  </style>
+  <div data-hf-id="hf-ypfn" id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-qwlh" id="in-floor"></div><div data-hf-id="hf-1h2v" id="in-floorline"></div>
+    <div data-hf-id="hf-68zn" id="in-name" class="clip" data-start="1.2" data-duration="8.3">
+      <div data-hf-id="hf-x7jq" class="label">Indie track · Meta Global AI Developer Hackathon 2026</div>
+      <h1 data-hf-id="hf-m3fm"><span data-hf-id="hf-zj9q">Aryan</span> <span data-hf-id="hf-rj4x">Srivastava</span></h1>
+      <p data-hf-id="hf-q1an"><span data-hf-id="hf-zcju">Machine</span> <span data-hf-id="hf-15fz">learning</span> <span data-hf-id="hf-ehpk">engineer,</span> <span data-hf-id="hf-ybkw">India</span></p>
+    </div>
+    <div data-hf-id="hf-7ukb" id="in-theme" class="clip" data-start="9.5" data-duration="10.37">
+      <div data-hf-id="hf-hum4" class="label">The theme</div>
+      <h1 data-hf-id="hf-7xza"><span data-hf-id="hf-mghd">Push</span> <span data-hf-id="hf-3tds">the</span> <span data-hf-id="hf-z6n8">Frontier</span></h1>
+      <p data-hf-id="hf-wo4v"><span data-hf-id="hf-de3m">Take</span> <span data-hf-id="hf-5u2g">the</span> <span data-hf-id="hf-wtan">Muse</span> <span data-hf-id="hf-5gan">models</span> <span data-hf-id="hf-30n5">past</span> <span data-hf-id="hf-43uj">what</span> <span data-hf-id="hf-5723">they</span> <span data-hf-id="hf-ait7">ship</span> <span data-hf-id="hf-u5dt">with.</span> <span data-hf-id="hf-sodb">Build</span> <span data-hf-id="hf-99vf">what</span> <span data-hf-id="hf-a844">does</span> <span data-hf-id="hf-9kkm">not</span> <span data-hf-id="hf-8odc">exist</span> <b data-hf-id="hf-s9dt">yet.</b></p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wordsIn = (sel, at, step) => tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: step, ease: "power2.out" }, at);
+    const out = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, at);
+    tl.fromTo("#in-name .label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.5);
+    wordsIn("#in-name h1 span", 1.7, 0.09);
+    wordsIn("#in-name p span", 3.1, 0.07);
+    out("#in-name > *", 9.2);
+    tl.fromTo("#in-theme .label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 9.7);
+    wordsIn("#in-theme h1 span", 11.1, 0.1);
+    wordsIn("#in-theme p span, #in-theme p b", 13.0, 0.07);
+    tl.fromTo("#in-theme p b", { scale: 1 }, { scale: 1.12, duration: 0.25, ease: "back.out(2)", transformOrigin: "50% 80%" }, 19.4);
+    out("#in-theme > *", 19.7);
+    window.__timelines["intro"] = tl;
+  </script>
+</template>

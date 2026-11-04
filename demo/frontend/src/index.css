@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-cond: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+
+  /* warm charcoal neutrals, tinted toward the amber accent */
+  --color-ink-950: oklch(0.17 0.008 70);
+  --color-ink-900: oklch(0.21 0.009 70);
+  --color-ink-850: oklch(0.245 0.01 70);
+  --color-ink-800: oklch(0.29 0.011 70);
+  --color-ink-700: oklch(0.37 0.012 70);
+  --color-ink-500: oklch(0.56 0.012 70);
+  --color-ink-300: oklch(0.76 0.01 70);
+  --color-ink-100: oklch(0.93 0.008 80);
+
+  --color-signal: oklch(0.82 0.16 80);       /* amber: the action and the live state */
+  --color-signal-dim: oklch(0.62 0.13 80);
+  --color-noul: oklch(0.78 0.15 155);        /* green */
+  --color-choice: oklch(0.76 0.12 245);      /* blue */
+  --color-score: oklch(0.78 0.13 320);       /* violet */
+  --color-bad: oklch(0.72 0.17 25);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root { color-scheme: dark; }
+html { background: var(--color-ink-950); }
+body {
+  @apply font-sans text-ink-100 bg-ink-950 antialiased;
+  font-feature-settings: "tnum" 1, "ss01" 1;
+}
+::selection { background: color-mix(in oklch, var(--color-signal) 35%, transparent); }
+
+.label { @apply font-cond text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-500; }
+.rule { @apply border-t border-ink-800; }
+.field {
+  @apply w-full bg-ink-900 border border-ink-800 rounded-sm px-2.5 py-1.5 text-[13px] text-ink-100 outline-none;
+  transition: border-color 160ms var(--ease-out-quint), box-shadow 160ms var(--ease-out-quint);
+}
+.field:focus { border-color: var(--color-signal-dim); box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-signal) 20%, transparent); }
+.field::placeholder { color: var(--color-ink-500); }
+.btn {
+  @apply inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-[13px] font-medium border border-ink-700 text-ink-100 cursor-pointer select-none;
+  transition: background-color 140ms, border-color 140ms, color 140ms, transform 140ms var(--ease-out-quint);
+}
+.btn:hover { @apply bg-ink-800; }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { @apply opacity-50 cursor-not-allowed; }
+.btn-primary { @apply bg-signal text-ink-950 border-signal font-semibold; }
+.btn-primary:hover { background: var(--color-signal-dim); border-color: var(--color-signal-dim); }
+.btn-ghost { @apply border-transparent text-ink-300; }
+.btn-ghost:hover { @apply text-ink-100 bg-ink-850; }
+.chip { @apply inline-flex items-center gap-1.5 rounded-sm border border-ink-800 bg-ink-900 px-2 py-0.5 text-[12px] text-ink-300; }
+.tab { @apply font-cond text-[13px] font-semibold uppercase tracking-[0.1em] px-1 pb-2 -mb-px border-b-2 border-transparent text-ink-500 cursor-pointer; }
+.tab:hover { @apply text-ink-300; }
+.tab[aria-selected="true"] { @apply text-ink-100 border-signal; }
+.type-noul { color: var(--color-noul); }
+.type-choice { color: var(--color-choice); }
+.type-score { color: var(--color-score); }
+.bar { @apply h-1.5 rounded-xs bg-ink-800 overflow-hidden; }
+.bar > i { @apply block h-full; transform-origin: left; transition: transform 600ms var(--ease-out-quint); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 420ms var(--ease-out-quint) both; }
+@keyframes attn { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-signal) 55%, transparent); } 50% { box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-signal) 0%, transparent); } }
+.btn-attn { animation: attn 1.6s ease-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.pulse { animation: pulse-dot 1.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .rise, .pulse, .btn-attn { animation: none; } .bar > i { transition: none; } }
+
+table.data { @apply w-full text-[13px]; border-collapse: collapse; }
+table.data th { @apply font-cond text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-500 text-left py-2 pr-3 border-b border-ink-700 whitespace-nowrap; }
+table.data td { @apply py-2 pr-3 border-b border-ink-850 align-top; }
+table.data tr:last-child td { border-bottom: 0; }
+.num { @apply font-mono tabular-nums; }

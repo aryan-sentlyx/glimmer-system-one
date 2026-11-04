@@ -1,0 +1,127 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; background: #1c1a17; font-family: 'IBM Plex Sans', sans-serif; color: #ece9e4; }
+    .label { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a857c; }
+    #bu-slot { position: absolute; left: 1600px; top: 330px; width: 220px; height: 150px; border: 3px dashed #8a857c; border-radius: 10px; }
+    #bu-slot i { position: absolute; inset: -3px; border-radius: 10px; background: #f0b429; }
+    #bu-title { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #bu-title h1 { position: absolute; left: 160px; top: 380px; font-size: 128px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
+    #bu-title h1 b { color: #f0b429; font-weight: 700; }
+    #bu-title p { position: absolute; left: 166px; top: 540px; font-size: 44px; font-weight: 500; color: #b5b0a6; }
+    #bu-io { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #bu-io .col { position: absolute; }
+    #bu-io .label { position: absolute; }
+    .card { position: absolute; border: 2px solid #3a3733; border-radius: 10px; background: #26231f; padding: 22px 26px; font-size: 28px; line-height: 1.3; }
+    #bu-img { left: 160px; top: 230px; width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 4px solid #3a3733; }
+    #bu-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #bu-state { left: 370px; top: 230px; width: 460px; height: 180px; color: #d6d2ca; }
+    #bu-qs { left: 160px; top: 440px; width: 670px; height: 280px; padding: 0; overflow: hidden; }
+    #bu-qs .q { padding: 16px 26px; border-bottom: 2px solid #3a3733; font-size: 28px; color: #ece9e4; display: flex; gap: 18px; align-items: center; }
+    #bu-qs .q:last-child { border-bottom: 0; }
+    .tag { font-family: 'IBM Plex Mono', monospace; font-size: 20px; padding: 4px 10px; border-radius: 6px; background: #1c1a17; }
+    .tag.noul { color: #5fd38a; } .tag.choice { color: #7cb7e8; } .tag.score { color: #c88fd6; }
+    #bu-arrow { position: absolute; left: 900px; top: 470px; width: 260px; }
+    #bu-arrow svg { width: 260px; height: 80px; }
+    #bu-arrow .t { margin-top: 10px; width: 260px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 24px; color: #f0b429; }
+    #bu-arrow .t2 { margin-top: 6px; width: 260px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #8a857c; }
+    .ans { position: absolute; left: 1220px; width: 560px; height: 120px; border-radius: 10px; background: #26231f; border: 2px solid #3a3733; padding: 18px 26px; }
+    .ans .n { font-family: 'IBM Plex Mono', monospace; font-size: 52px; font-weight: 500; line-height: 1; }
+    .ans .k { font-size: 22px; color: #8a857c; margin-top: 8px; }
+    #bu-a1 { top: 320px; } #bu-a2 { top: 470px; } #bu-a3 { top: 620px; }
+    #bu-types { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #bu-types h2 { position: absolute; left: 160px; top: 215px; font-size: 64px; font-weight: 700; letter-spacing: -0.02em; }
+    .ty { position: absolute; left: 300px; width: 1460px; height: 150px; border-radius: 12px; background: #26231f; border: 2px solid #3a3733; padding: 30px 40px; display: flex; align-items: center; gap: 36px; }
+    .ty .q { font-size: 48px; font-weight: 600; flex: 1; }
+    .ty .tag { font-size: 28px; padding: 8px 16px; }
+    .ty .ex { font-family: 'IBM Plex Mono', monospace; font-size: 26px; color: #8a857c; }
+    #bu-t1 { top: 300px; } #bu-t2 { top: 470px; } #bu-t3 { top: 640px; }
+    #bu-layers { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #bu-layers h2 { position: absolute; left: 160px; top: 220px; font-size: 64px; font-weight: 700; letter-spacing: -0.02em; }
+    #bu-bar { position: absolute; left: 160px; top: 480px; width: 1600px; height: 120px; display: flex; gap: 6px; }
+    #bu-bar i { display: block; flex: 1; background: #3a3733; border-radius: 4px; }
+    #bu-cut { position: absolute; left: 556px; top: 440px; width: 6px; height: 200px; background: #f0b429; border-radius: 3px; }
+    #bu-l13 { position: absolute; left: 300px; top: 640px; width: 600px; }
+    #bu-l52 { position: absolute; left: 1160px; top: 640px; width: 600px; text-align: right; }
+    .lab .n { font-family: 'IBM Plex Mono', monospace; font-size: 64px; font-weight: 500; }
+    .lab .k { font-size: 28px; color: #b5b0a6; margin-top: 6px; }
+    #bu-l13 .n { color: #f0b429; }
+  </style>
+  <div data-hf-id="hf-eh5x" id="root" data-composition-id="built" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-zigd" id="bu-slot" class="clip" data-start="0" data-duration="1.6"><i data-hf-id="hf-wt6k"></i></div>
+    <div data-hf-id="hf-n6an" id="bu-title" class="clip" data-start="1.2" data-duration="30.79">
+      <h1 data-hf-id="hf-zri1">Glimmer <b data-hf-id="hf-43u0">System One</b></h1>
+      <p data-hf-id="hf-svg7">a decision model for the Muse family</p>
+    </div>
+    <div data-hf-id="hf-dr2r" id="bu-io" class="clip" data-start="8.6" data-duration="9.5">
+      <div data-hf-id="hf-r1n8" class="label" style="left:160px;top:190px">In: a picture, a description, questions</div>
+      <div data-hf-id="hf-lum9" class="card" id="bu-img"><img data-hf-id="hf-dr3e" src="assets/bottles/bottle_good_2.png" alt="" /></div>
+      <div data-hf-id="hf-krtb" class="card" id="bu-state">Photo of a part from a production line, taken for quality inspection.</div>
+      <div data-hf-id="hf-0l0s" class="card" id="bu-qs">
+        <div data-hf-id="hf-32az" class="q"><span data-hf-id="hf-vct9" class="tag noul">noul</span>The part has a visible manufacturing defect.</div>
+        <div data-hf-id="hf-8q4m" class="q"><span data-hf-id="hf-qwfb" class="tag choice">choice</span>Which defect does the part show?</div>
+        <div data-hf-id="hf-ydik" class="q"><span data-hf-id="hf-eypl" class="tag score">score</span>How severe is the damage?</div>
+      </div>
+      <div data-hf-id="hf-8rkm" id="bu-arrow"><svg data-hf-id="hf-uphr" viewBox="0 0 260 80"><path data-hf-id="hf-a911" d="M10 40 H220" stroke="#f0b429" stroke-width="6" fill="none" stroke-linecap="round"/><path data-hf-id="hf-wu56" d="M195 15 L232 40 L195 65" stroke="#f0b429" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div data-hf-id="hf-zyii" class="t">one forward pass</div><div data-hf-id="hf-iqsn" class="t2">no text written</div></div>
+      <div data-hf-id="hf-0dif" class="label" style="left:1220px;top:270px">Out: one number per question</div>
+      <div data-hf-id="hf-fdsw" class="ans" id="bu-a1"><div data-hf-id="hf-6ikq" class="n">1.0%</div><div data-hf-id="hf-p048" class="k">defective</div></div>
+      <div data-hf-id="hf-o1or" class="ans" id="bu-a2"><div data-hf-id="hf-yk8p" class="n">good · 99.0%</div><div data-hf-id="hf-awj2" class="k">defect type</div></div>
+      <div data-hf-id="hf-k3kq" class="ans" id="bu-a3"><div data-hf-id="hf-qjym" class="n">0.82 / 3</div><div data-hf-id="hf-lx66" class="k">severity, nearest “minor”</div></div>
+    </div>
+    <div data-hf-id="hf-7mkd" id="bu-types" class="clip" data-start="18" data-duration="6.7">
+      <h2 data-hf-id="hf-i6wq">Three kinds of questions</h2>
+      <div data-hf-id="hf-xus8" class="ty" id="bu-t1"><div data-hf-id="hf-xvwi" class="q">Is this true?</div><span data-hf-id="hf-j135" class="ex">a statement → P(true)</span><span data-hf-id="hf-g8tt" class="tag noul">noul</span></div>
+      <div data-hf-id="hf-8q9v" class="ty" id="bu-t2"><div data-hf-id="hf-sy2t" class="q">Which one of these?</div><span data-hf-id="hf-vhr2" class="ex">[a, b, c] → one probability each</span><span data-hf-id="hf-0j0n" class="tag choice">choice</span></div>
+      <div data-hf-id="hf-4s5u" class="ty" id="bu-t3"><div data-hf-id="hf-fjq7" class="q">How much, on a scale?</div><span data-hf-id="hf-0f1w" class="ex">[low &lt; high] → expected level</span><span data-hf-id="hf-kxsd" class="tag score">score</span></div>
+    </div>
+    <div data-hf-id="hf-yjou" id="bu-layers" class="clip" data-start="24.6" data-duration="7.39">
+      <h2 data-hf-id="hf-x27y">Open weights: stop the model halfway</h2>
+      <div data-hf-id="hf-884q" id="bu-bar"><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i><i data-hf-id="hf-2krg"></i><i data-hf-id="hf-oz7w"></i><i data-hf-id="hf-okwv"></i><i data-hf-id="hf-o6lu"></i><i data-hf-id="hf-jqbp"></i><i data-hf-id="hf-qkg0"></i><i data-hf-id="hf-q64z"></i><i data-hf-id="hf-prty"></i><i data-hf-id="hf-pdix"></i><i data-hf-id="hf-hqsk"></i><i data-hf-id="hf-hchj"></i><i data-hf-id="hf-8d0n"></i><i data-hf-id="hf-8rbo"></i><i data-hf-id="hf-7kel"></i><i data-hf-id="hf-7ypm"></i><i data-hf-id="hf-9y8r"></i><i data-hf-id="hf-acjs"></i><i data-hf-id="hf-95mp"></i><i data-hf-id="hf-9jxq"></i><i data-hf-id="hf-bjgv"></i><i data-hf-id="hf-bxrw"></i><i data-hf-id="hf-7lcu"></i><i data-hf-id="hf-771t"></i><i data-hf-id="hf-8dyw"></i><i data-hf-id="hf-7znv"></i><i data-hf-id="hf-604q"></i><i data-hf-id="hf-5ltp"></i><i data-hf-id="hf-6sqs"></i><i data-hf-id="hf-6efr"></i><i data-hf-id="hf-art2"></i><i data-hf-id="hf-adi1"></i><i data-hf-id="hf-otn5"></i><i data-hf-id="hf-p7y6"></i><i data-hf-id="hf-pm97"></i><i data-hf-id="hf-q0k8"></i><i data-hf-id="hf-n8f1"></i><i data-hf-id="hf-nmq2"></i><i data-hf-id="hf-o113"></i><i data-hf-id="hf-ofc4"></i><i data-hf-id="hf-s03d"></i><i data-hf-id="hf-seee"></i><i data-hf-id="hf-o1zc"></i><i data-hf-id="hf-nnob"></i><i data-hf-id="hf-n9da"></i></div>
+      <div data-hf-id="hf-13gl" id="bu-cut"></div>
+      <div data-hf-id="hf-3drn" class="lab" id="bu-l13"><div data-hf-id="hf-rmtl" class="n">21 ms</div><div data-hf-id="hf-pa5v" class="k">exit at layer 13, AUROC 0.954</div></div>
+      <div data-hf-id="hf-3cj2" class="lab" id="bu-l52"><div data-hf-id="hf-51fv" class="n">45 ms</div><div data-hf-id="hf-vtvs" class="k">all 52 layers, AUROC 0.962</div></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const blurIn = (sel, at, dur = 0.3, stagger = 0) => tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: dur, stagger, ease: "power2.out" }, at);
+    const out = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, at);
+    // the empty slot fills with the accent, then becomes the title
+    tl.fromTo("#bu-slot i", { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power3.out", transformOrigin: "50% 100%" }, 0.5);
+    tl.to("#bu-slot", { scale: 6, opacity: 0, duration: 0.6, ease: "power3.in", transformOrigin: "50% 50%" }, 1.0);
+    tl.fromTo("#bu-title h1", { opacity: 0, filter: "blur(10px)", scale: 1.06 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "0 50%" }, 1.3);
+    blurIn("#bu-title p", 2.2);
+    // the title moves to the top for the diagram
+    tl.to("#bu-title h1", { scale: 0.45, y: -290, duration: 0.6, ease: "power2.inOut" }, 7.0);
+    tl.to("#bu-title p", { opacity: 0, duration: 0.3 }, 7.0);
+    tl.fromTo("#bu-io .label", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 5.8 }, 8.8);
+    tl.fromTo("#bu-img", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", transformOrigin: "50% 50%" }, 9.3);
+    tl.fromTo("#bu-state", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 10.8);
+    tl.fromTo("#bu-qs", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 12.4);
+    tl.fromTo("#bu-qs .q", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.3 }, 12.6);
+    tl.fromTo("#bu-arrow svg path", { strokeDasharray: 300, strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 14.0);
+    blurIn("#bu-arrow .t, #bu-arrow .t2", 14.4, 0.3, 0.2);
+    tl.fromTo(".ans", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, stagger: 0.5, ease: "expo.out" }, 15.0);
+    out("#bu-io > *", 17.8);
+    // three kinds of questions
+    blurIn("#bu-types h2", 18.1);
+    tl.fromTo(".ty", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, stagger: 1.25, ease: "expo.out" }, 19.9);
+    tl.fromTo(".ty .tag", { scale: 0.6 }, { scale: 1, duration: 0.4, stagger: 1.25, ease: "back.out(2)", transformOrigin: "50% 50%" }, 20.2);
+    out("#bu-types > *", 24.4);
+    // the layer bar, cut at 13
+    blurIn("#bu-layers h2", 24.7);
+    tl.fromTo("#bu-bar i", { scaleY: 0 }, { scaleY: 1, duration: 0.3, stagger: 0.02, ease: "power2.out", transformOrigin: "50% 100%" }, 25.0);
+    tl.fromTo("#bu-l52", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 26.0);
+    tl.fromTo("#bu-cut", { scaleY: 0 }, { scaleY: 1, duration: 0.3, ease: "power3.out", transformOrigin: "50% 0" }, 27.5);
+    tl.to("#bu-bar i:nth-child(n+14)", { opacity: 0.28, duration: 0.4 }, 27.7);
+    tl.to("#bu-bar i:nth-child(-n+13)", { backgroundColor: "#f0b429", duration: 0.4 }, 27.7);
+    tl.fromTo("#bu-l13", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 28.0);
+    out("#bu-layers > *, #bu-title h1", 31.7);
+    window.__timelines["built"] = tl;
+  </script>
+</template>

@@ -1,0 +1,14 @@
+✓ Created objects.
+├── ✓ Uploaded /Users/aryansrivastava/meta-challenege/model/src/serve.py
+├── ✓ Uploaded PythonPackage:glimmer_image, PythonPackage:mvtec_data, 
+│   PythonPackage:decisions_client, PythonPackage:muse_client, 
+│   PythonPackage:prompts
+├── ✓ Created Function SystemOne.*.
+│   └── SystemOne.decide -> 
+│       https://aryan-59489--glimmer-decide.us-east.modal.run (unauthenticated)
+└── ✓ Created Function health
+    └── https://aryan-59489--glimmer-health.us-east.modal.run (unauthenticated)
+✓ App deployed in 4.184s! 🎉
+
+View Deployment: 
+https://modal.com/apps/aryan-59489/main/deployed/glimmer-systemone

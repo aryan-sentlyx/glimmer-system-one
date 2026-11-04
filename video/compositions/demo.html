@@ -1,0 +1,120 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; background: #1c1a17; font-family: 'IBM Plex Sans', sans-serif; color: #ece9e4; }
+    #de-plate { position: absolute; inset: 0; overflow: hidden; }
+    #de-plate img { position: absolute; left: 0; top: 0; width: 1920px; height: 1093px; display: block; }
+    #de-ui { position: absolute; inset: 0; }
+    .lab { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a857c; display: flex; justify-content: space-between; }
+    .lab span { text-transform: none; letter-spacing: 0; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: 24px; }
+    .box { position: absolute; left: 140px; width: 980px; }
+    .box .in { margin-top: 12px; border: 2px solid #3a3733; border-radius: 6px; background: #26231f; padding: 20px 22px; font-size: 28px; line-height: 1.45; color: #ece9e4; }
+    #de-ctx { top: 120px; }
+    #de-ctx .in { display: flex; gap: 22px; }
+    #de-ctx .pic { width: 170px; flex: none; }
+    #de-ctx img { width: 170px; height: 170px; border-radius: 4px; border: 2px solid #3a3733; display: block; }
+    #de-ctx .file { margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 22px; color: #8a857c; line-height: 1.3; }
+    #de-q { top: 440px; }
+    #de-q .in { font-size: 28px; }
+    #de-parsed { margin-top: 16px; font-size: 28px; color: #b5b0a6; }
+    #de-parsed div { display: flex; gap: 16px; align-items: baseline; margin-top: 8px; }
+    .tag { font-family: 'IBM Plex Mono', monospace; font-size: 24px; min-width: 96px; }
+    .tag.noul { color: #5fd38a; } .tag.choice { color: #7cb7e8; } .tag.score { color: #c88fd6; }
+    #de-parsed i { font-style: normal; color: #5fd38a; } #de-parsed u { text-decoration: none; color: #7cb7e8; }
+    #de-run { position: absolute; left: 140px; top: 900px; display: flex; align-items: center; gap: 26px; }
+    #de-btn { background: #f0b429; color: #1c1a17; font-weight: 700; font-size: 28px; padding: 14px 30px; border-radius: 4px; }
+    #de-run .k { font-size: 28px; color: #8a857c; }
+    #de-cursor { position: absolute; left: 0; top: 0; width: 70px; height: 90px; }
+    #de-out { position: absolute; inset: 0; background: #1c1a17; clip-path: circle(0px at 230px 930px); }
+    #de-pane { position: absolute; left: 160px; top: 90px; width: 1220px; }
+    #de-pane .lab { border-bottom: 2px solid #3a3733; padding-bottom: 12px; }
+    .ans { margin-top: 34px; }
+    .ans .q { display: flex; justify-content: space-between; align-items: baseline; font-size: 32px; font-weight: 600; }
+    .ans .q .n { font-family: 'IBM Plex Mono', monospace; font-size: 44px; font-weight: 500; }
+    .ans .m { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #8a857c; margin-top: 4px; }
+    .ans .m i { font-style: normal; } .ans.noul .m i { color: #5fd38a; } .ans.choice .m i { color: #7cb7e8; } .ans.score .m i { color: #c88fd6; }
+    .bar { height: 10px; background: #3a3733; border-radius: 5px; margin-top: 14px; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 100%; border-radius: 5px; }
+    .ans.noul .bar i { background: #5fd38a; } .opt .bar i { background: #7cb7e8; }
+    .ans .sub { display: flex; justify-content: space-between; font-size: 20px; color: #8a857c; margin-top: 10px; }
+    .opt { display: grid; grid-template-columns: 220px 1fr 110px; gap: 20px; align-items: center; margin-top: 12px; font-size: 24px; color: #b5b0a6; }
+    .opt .bar { margin-top: 0; }
+    .opt .v { font-family: 'IBM Plex Mono', monospace; text-align: right; }
+    .seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+    .seg .bar { margin-top: 0; } .seg .bar i { background: #c88fd6; }
+    .seg .t { font-size: 20px; color: #8a857c; margin-top: 6px; }
+    #de-time { margin-top: 40px; padding-top: 22px; border-top: 2px solid #3a3733; font-size: 24px; color: #8a857c; display: flex; gap: 34px; }
+    #de-time b { color: #ece9e4; font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
+    #de-open { position: absolute; left: 160px; top: 960px; font-size: 30px; font-weight: 600; color: #ece9e4; display: flex; gap: 30px; align-items: center; }
+    #de-open b { color: #f0b429; }
+    #de-open span { color: #8a857c; font-weight: 400; }
+  </style>
+  <div data-hf-id="hf-j1wo" id="root" data-composition-id="demo" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-vn9p" id="de-plate" class="clip" data-start="0" data-duration="1.9" data-layout-allow-overflow><img data-hf-id="hf-dkby" src="assets/demo-full.png" alt="" /></div>
+    <div data-hf-id="hf-m2ci" id="de-ui" class="clip" data-start="1.5" data-duration="16.02">
+      <div data-hf-id="hf-8zhg" class="box" id="de-ctx"><div data-hf-id="hf-qskq" class="lab">1 · Context<span data-hf-id="hf-rq2f">an image, a text, or both</span></div>
+        <div data-hf-id="hf-sz59" class="in"><div data-hf-id="hf-m79s" class="pic"><img data-hf-id="hf-dr3e" src="assets/bottles/bottle_good_2.png" alt="" /><div data-hf-id="hf-y66t" class="file" data-layout-ignore>bottle_good_2.png<br data-hf-id="hf-x5px"/>448 px</div></div><div data-hf-id="hf-p6q6">Photo of a part from a production line, taken for quality inspection.</div></div></div>
+      <div data-hf-id="hf-nfzu" class="box" id="de-q"><div data-hf-id="hf-7qvx" class="lab">2 · Questions<span data-hf-id="hf-k3ca">one per line</span></div>
+        <div data-hf-id="hf-tgy4" class="in">The part has a visible manufacturing defect.<br data-hf-id="hf-rsrt"/>Which defect does the part show? [good, broken_large, broken_small, contamination]<br data-hf-id="hf-szow"/>How severe is the damage? [none &lt; minor &lt; moderate &lt; severe]</div>
+        <div data-hf-id="hf-zqwy" id="de-parsed">
+          <div data-hf-id="hf-u616"><span data-hf-id="hf-vct9" class="tag noul">noul</span>The part has a visible manufacturing defect. <i data-hf-id="hf-5s28">· trained head</i></div>
+          <div data-hf-id="hf-aw5r"><span data-hf-id="hf-qwfb" class="tag choice">choice</span>Which defect does the part show? <u data-hf-id="hf-yzv4">· gated by defective</u></div>
+          <div data-hf-id="hf-ssg5"><span data-hf-id="hf-eypl" class="tag score">score</span>How severe is the damage? none &lt; minor &lt; moderate &lt; severe</div>
+        </div></div>
+      <div data-hf-id="hf-8qxw" id="de-run"><div data-hf-id="hf-t9z2" id="de-btn">Run ▶</div><div data-hf-id="hf-tn0d" class="k">6 prompts · one forward pass</div></div>
+      <svg data-hf-id="hf-oik3" id="de-cursor" viewBox="0 0 70 90"><path data-hf-id="hf-brx8" d="M8 6 L8 66 L24 52 L36 82 L48 76 L36 48 L58 46 Z" fill="#ece9e4" stroke="#1c1a17" stroke-width="4" stroke-linejoin="round"/></svg>
+      <div data-hf-id="hf-lka5" id="de-out" data-layout-allow-occlusion>
+        <div data-hf-id="hf-bif3" id="de-pane">
+          <div data-hf-id="hf-s4bg" class="lab">Output<span data-hf-id="hf-bq1s">answers</span></div>
+          <div data-hf-id="hf-3apg" class="ans noul" id="de-a1"><div data-hf-id="hf-xt7l" class="q"><span data-hf-id="hf-xtgr">The part has a visible manufacturing defect.</span><span data-hf-id="hf-f9e1" class="n">1.0%</span></div><div data-hf-id="hf-ogbe" class="m"><i data-hf-id="hf-npxu">noul</i> defective</div><div data-hf-id="hf-ufsv" class="bar"><i data-hf-id="hf-wt6k"></i></div><div data-hf-id="hf-iqrq" class="sub"><span data-hf-id="hf-110l">trained head · layer 52</span><span data-hf-id="hf-wy66">&lt; 50% threshold · false</span></div></div>
+          <div data-hf-id="hf-8dae" class="ans choice" id="de-a2"><div data-hf-id="hf-dbn9" class="q"><span data-hf-id="hf-ia86">Which defect does the part show?</span><span data-hf-id="hf-sbfw" class="n">good</span></div><div data-hf-id="hf-b6pd" class="m"><i data-hf-id="hf-4y2f">choice</i> defect_type</div>
+            <div data-hf-id="hf-rnyb" class="opt"><span data-hf-id="hf-74c4">good</span><div data-hf-id="hf-c51b" class="bar"><i data-hf-id="hf-zeb8"></i></div><span data-hf-id="hf-y9ds" class="v">99.0%</span></div>
+            <div data-hf-id="hf-efsz" class="opt"><span data-hf-id="hf-c6mx">contamination</span><div data-hf-id="hf-bqqa" class="bar"><i data-hf-id="hf-y7e5"></i></div><span data-hf-id="hf-s8w7" class="v">0.41%</span></div>
+            <div data-hf-id="hf-e1hy" class="opt"><span data-hf-id="hf-3gmg">broken_small</span><div data-hf-id="hf-bcf9" class="bar"><i data-hf-id="hf-ylp6"></i></div><span data-hf-id="hf-0vko" class="v">0.33%</span></div>
+            <div data-hf-id="hf-dn6x" class="opt"><span data-hf-id="hf-0zds">broken_large</span><div data-hf-id="hf-e4kg" class="bar"><i data-hf-id="hf-0l8b"></i></div><span data-hf-id="hf-tcx6" class="v">0.26%</span></div></div>
+          <div data-hf-id="hf-esrm" class="ans score" id="de-a3"><div data-hf-id="hf-eikc" class="q"><span data-hf-id="hf-lfcc">How severe is the damage?</span><span data-hf-id="hf-eyl1" class="n">0.82 <span data-hf-id="hf-zgsu" style="font-size:24px;color:#8a857c">/ 3</span></span></div><div data-hf-id="hf-3qqy" class="m"><i data-hf-id="hf-ejhi">score</i> severity</div>
+            <div data-hf-id="hf-ta0z" class="seg"><div data-hf-id="hf-yeow"><div data-hf-id="hf-dq9f" class="bar"><i data-hf-id="hf-0zjc"></i></div><div data-hf-id="hf-z1m6" class="t">0 none</div></div><div data-hf-id="hf-y7yw"><div data-hf-id="hf-dbye" class="bar"><i data-hf-id="hf-zsm9"></i></div><div data-hf-id="hf-2dge" class="t">1 minor</div></div><div data-hf-id="hf-x11t"><div data-hf-id="hf-cxnd" class="bar"><i data-hf-id="hf-06xa"></i></div><div data-hf-id="hf-4nev" class="t">2 moderate</div></div><div data-hf-id="hf-xfcu"><div data-hf-id="hf-9cw4" class="bar"><i data-hf-id="hf-26gf"></i></div><div data-hf-id="hf-f9ij" class="t">3 severe</div></div></div>
+            <div data-hf-id="hf-n762" class="sub"><span data-hf-id="hf-y1r8">expected level · nearest “minor”</span></div></div>
+          <div data-hf-id="hf-8gsu" id="de-time"><span data-hf-id="hf-erce">forward <b data-hf-id="hf-3kpb">378 ms</b></span><span data-hf-id="hf-yvom">server <b data-hf-id="hf-ngw1">448 ms</b></span><span data-hf-id="hf-naly"><b data-hf-id="hf-tiy1">6</b> prompts · one pass</span></div>
+        </div>
+        <div data-hf-id="hf-zfas" id="de-open"><b data-hf-id="hf-vduf">Apache 2.0</b><span data-hf-id="hf-mjl4">code</span>GitHub<span data-hf-id="hf-1bmq">·</span><span data-hf-id="hf-vplz">trained heads</span>Hugging Face<span data-hf-id="hf-8hs6">·</span><span data-hf-id="hf-gpoi">demo</span>live on Modal</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // the real page: a slow push towards the two boxes
+    tl.fromTo("#de-plate img", { scale: 1, x: 0, y: 0 }, { scale: 1.25, x: 120, y: -230, duration: 1.4, ease: "power2.inOut", transformOrigin: "0 0" }, 0.3);
+    tl.to("#de-plate", { opacity: 0, duration: 0.3 }, 1.5);
+    // the rebuilt boxes at 1.6x
+    tl.fromTo("#de-ctx", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, 1.6);
+    tl.fromTo("#de-q", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, 4.2);
+    tl.fromTo("#de-parsed div", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.3 }, 4.6);
+    tl.fromTo("#de-run", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 6.0);
+    // the cursor comes in and presses Run
+    tl.fromTo("#de-cursor", { x: 1500, y: 1100, opacity: 1 }, { x: 236, y: 912, duration: 0.6, ease: "power3.inOut" }, 6.2);
+    tl.to("#de-btn", { scale: 0.93, duration: 0.08, yoyo: true, repeat: 1, transformOrigin: "50% 50%" }, 6.9);
+    tl.to("#de-cursor", { opacity: 0, duration: 0.2 }, 7.2);
+    // iris from the click onto the output pane
+    tl.fromTo("#de-out", { clipPath: "circle(0px at 230px 930px)" }, { clipPath: "circle(2400px at 230px 930px)", duration: 0.7, ease: "power3.in" }, 7.1);
+    tl.fromTo("#de-pane .lab", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 7.6);
+    tl.fromTo("#de-a1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 8.0);
+    tl.fromTo("#de-a1 .bar i", { scaleX: 0 }, { scaleX: 0.01, duration: 0.5, ease: "power3.out", transformOrigin: "0 50%" }, 8.3);
+    tl.fromTo("#de-a2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 9.0);
+    const opts = [0.99, 0.0041, 0.0033, 0.0026];
+    opts.forEach((v, i) => tl.fromTo("#de-a2 .opt:nth-child(" + (i + 3) + ") .bar i", { scaleX: 0 }, { scaleX: Math.max(v, 0.008), duration: 0.6, ease: "power3.out", transformOrigin: "0 50%" }, 9.3 + i * 0.1));
+    tl.fromTo("#de-a3", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 10.0);
+    const seg = [0.4, 0.46, 0.14, 0.02];
+    seg.forEach((v, i) => tl.fromTo("#de-a3 .seg > div:nth-child(" + (i + 1) + ") .bar i", { scaleX: 0 }, { scaleX: v, duration: 0.6, ease: "power3.out", transformOrigin: "0 50%" }, 10.3 + i * 0.1));
+    tl.fromTo("#de-time", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 11.4);
+    tl.fromTo("#de-time b", { color: "#f0b429" }, { color: "#ece9e4", duration: 1.2 }, 11.6);
+    tl.fromTo("#de-open", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 12.6);
+    tl.to("#de-ui", { opacity: 0, duration: 0.3, ease: "power3.in" }, 17.3);
+    window.__timelines["demo"] = tl;
+  </script>
+</template>

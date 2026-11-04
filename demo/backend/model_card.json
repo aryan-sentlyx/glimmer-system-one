@@ -1,0 +1,50 @@
+{
+  "name": "Glimmer System One",
+  "tagline": "An open multimodal decision model. Image and typed questions in, calibrated probabilities out, in one forward pass.",
+  "base_model": "meta-models/Muse-Glimmer-30B",
+  "base_model_url": "https://huggingface.co/meta-models/Muse-Glimmer-30B",
+  "parameters": "30B dense, 52 layers, 1.8B vision encoder",
+  "license": "Apache 2.0 (code, heads, base model)",
+  "hardware": "One NVIDIA H100 on Modal",
+  "input": ["image (optional, resized to 448 px)", "state text (optional)", "one or more typed questions"],
+  "output": "A probability per question. No free text.",
+  "question_types": [
+    {"type": "noul", "what": "A statement. Returns P(true).", "how": "Logit of yes against no at the answer position, then one temperature."},
+    {"type": "choice", "what": "One option out of a list. Returns a probability per option.", "how": "One yes/no prompt per option in the same batch, then a softmax over the log-odds."},
+    {"type": "score", "what": "A level on an ordered scale. Returns the expected level.", "how": "Softmax over the digit tokens 0 to N."}
+  ],
+  "modes": [
+    {"mode": "zero-shot + temperature", "when": "Any image, any product, any question.", "auroc": 0.882, "acc": 0.814, "ece": 0.040},
+    {"mode": "head (layer 52)", "when": "A known product. A logistic head on the hidden state, trained on half of the known products.", "auroc": 0.962, "acc": 0.902, "ece": 0.045},
+    {"mode": "head (layer 13, early exit)", "when": "Same as above, stops after 13 of 52 layers.", "auroc": 0.954, "acc": 0.883, "ece": 0.034}
+  ],
+  "benchmark": {
+    "dataset": "MVTec AD, all 1,725 test images, 15 products",
+    "rows": [
+      {"system": "Glimmer head, known product, held-out half", "auroc": 0.962, "acc": 0.902, "ece": 0.045, "latency": "45 ms batched", "open": true},
+      {"system": "Glimmer layer 13 head, early exit", "auroc": 0.954, "acc": 0.883, "ece": 0.034, "latency": "21 ms batched", "open": true},
+      {"system": "Liquid d1-ultra", "auroc": 0.929, "acc": 0.832, "ece": 0.147, "latency": "0.46 s", "open": false},
+      {"system": "TypeSafe Jev 1.14", "auroc": 0.917, "acc": 0.852, "ece": 0.125, "latency": "0.31 s", "open": false},
+      {"system": "Baseten Elephant 1", "auroc": 0.902, "acc": 0.805, "ece": 0.181, "latency": "0.43 s", "open": false},
+      {"system": "Glimmer zero-shot + temperature, unseen product", "auroc": 0.882, "acc": 0.814, "ece": 0.040, "latency": "45 ms batched", "open": true},
+      {"system": "Muse Spark 1.3, JSON, low reasoning", "auroc": 0.873, "acc": 0.831, "ece": 0.097, "latency": "3.9 s", "open": false},
+      {"system": "Muse Spark 1.3, JSON, default reasoning", "auroc": 0.872, "acc": 0.826, "ece": 0.101, "latency": "8.0 s", "open": false}
+    ]
+  },
+  "throughput": [
+    {"setting": "6 prompts per image, full depth", "per_image": "289 ms", "images_per_s": 3.5},
+    {"setting": "1 prompt per image, full depth, batched", "per_image": "45 ms", "images_per_s": 22},
+    {"setting": "1 prompt per image, exit at layer 13, batched", "per_image": "21 ms", "images_per_s": 48}
+  ],
+  "limits": [
+    "The model answers typed questions only. It does not write text.",
+    "A head is valid only for the prompt template it was trained on.",
+    "The defect type question is weak for every system tested, 47% to 61% accuracy.",
+    "The first call after 10 minutes of idle waits about 50 s for the GPU container."
+  ],
+  "links": {
+    "repository": "https://github.com/aryan7srivastava/glimmer-systemone",
+    "huggingface": "https://huggingface.co/aryan7srivastava/glimmer-systemone-heads",
+    "hackathon": "Meta Global AI Developer Hackathon 2026, indie track, Push the Frontier"
+  }
+}

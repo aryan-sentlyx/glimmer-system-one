@@ -1,0 +1,22 @@
+# secrets
+.env
+# python
+.venv/
+__pycache__/
+*.pyc
+# large local data (MVTec AD is CC BY-NC-SA, download with model/src/download_mvtec.py)
+data/
+*.safetensors
+# node
+node_modules/
+dist/
+# hyperframes renders
+video/out/
+video/renders/
+*.mp4
+# os
+.DS_Store
+# hyperframes caches
+video/.hyperframes/
+video/.thumbnails/
+video/.waveform-cache/

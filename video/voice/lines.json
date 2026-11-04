@@ -1,0 +1,42 @@
+[
+  {
+    "id": "intro",
+    "scene": "intro",
+    "text": "Hello judges. I am Aryan Srivastava, a machine learning engineer from India. I like to work at the edge of what is new in AI."
+  },
+  {
+    "id": "frontier",
+    "scene": "intro",
+    "text": "This hackathon asks us to push the frontier. For me that means taking the Muse models past what they ship with today, to something that does not exist yet."
+  },
+  {
+    "id": "family",
+    "scene": "family",
+    "text": "This year Meta released the Muse family. Muse Spark is the reasoning model behind the API. Muse Glimmer is the open thirty-B multimodal model. What the family does not have is a System One model. TypeSafe Jev made that category popular in September: a model that does not write an answer. It decides. It returns a probability in one pass. OpenAI followed with the Decisions API on GPT six Luna. Microsoft followed with Decision One. Both are closed. And the Muse family has none."
+  },
+  {
+    "id": "built",
+    "scene": "built",
+    "text": "So I built Glimmer System One. I took Muse Glimmer, Meta's open thirty-B model, and removed the part that writes text. You give it a picture, a short description, and your questions. For each question it gives back one number: how sure it is. You can ask three kinds of questions. Is this true? Which one of these? How much, on a scale? And because the weights are open, I can stop it at layer thirteen of fifty-two and still answer in twenty-one milliseconds."
+  },
+  {
+    "id": "cases",
+    "scene": "cases",
+    "text": "Where does this help? Think of a factory line. Every second a new part comes by, and one question needs an answer: is it broken? A normal AI model first writes a long explanation, more than a thousand tokens, and that takes eight seconds. The part is long gone. System One skips the explanation and answers in forty-five milliseconds. And it works without a picture too. It can stop an AI agent before a dangerous command, or route a support ticket and rate how urgent it is."
+  },
+  {
+    "id": "compare",
+    "scene": "compare",
+    "text": "I ran all seventeen hundred and twenty-five M V Tec images through every model. On the held-out half, Glimmer System One reaches an A U rock of zero point nine six two, with a calibration error of zero point zero four five. Spark gets zero point eight seven, and zero point one zero. Liquid, TypeSafe and Baseten land between, and all of them are worse calibrated. When System One says seventy percent, about seventy percent of those parts are defective. That is what makes a threshold mean something."
+  },
+  {
+    "id": "demo",
+    "scene": "demo",
+    "text": "Here is the demo. Drop an image, write the state, type your questions as plain lines. Press Run. Six prompts, one pass, every answer as a probability. The code, the trained heads, and the demo are open under Apache two point oh."
+  },
+  {
+    "id": "close",
+    "scene": "end",
+    "text": "Glimmer System One. A decision model for the Muse family. Thank you."
+  }
+]

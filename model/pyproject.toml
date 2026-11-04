@@ -1,0 +1,17 @@
+[project]
+name = "glimmer-systemone"
+version = "0.1.0"
+description = "Open multimodal System One decision model on Muse Glimmer 30B: Modal deployment and evaluation"
+requires-python = ">=3.12"
+dependencies = [
+    "huggingface-hub>=2.4.0",
+    "matplotlib>=3.11.2",
+    "modal>=1.6.3",
+    "numpy>=2.5.4",
+    "openai>=3.42.0",
+    "pillow>=13.0.0",
+    "pyarrow>=26.0.0",
+    "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
+    "scikit-learn>=1.9.1",
+]

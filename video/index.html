@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"
+  data-composition-variables='[
+    {"id":"accent","type":"color","label":"Accent","default":"#f0b429"},
+    {"id":"groundLight","type":"color","label":"Light ground","default":"#e9e6e0"},
+    {"id":"groundDark","type":"color","label":"Dark ground","default":"#1c1a17"},
+    {"id":"demoUrl","type":"string","label":"Demo URL","default":"aryan-59489--glimmer-demo.us-east.modal.run"}
+  ]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root { --accent: #f0b429; --groundLight: #e9e6e0; --groundDark: #1c1a17; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #e9e6e0; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      .scene { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-plbr" id="root" data-composition-id="main" data-start="0" data-duration="179.929" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-0iz2" id="intro"     class="scene" data-composition-id="intro"     data-composition-src="compositions/intro.html"     data-start="0"   data-duration="19.871" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-1413" id="family"    class="scene" data-composition-id="family"    data-composition-src="compositions/family.html"    data-start="19.871"  data-duration="35.36" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-1nsg" id="built"     class="scene" data-composition-id="built"     data-composition-src="compositions/built.html"     data-start="55.231"  data-duration="31.986" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-2qq6" id="cases"     class="scene" data-composition-id="cases"     data-composition-src="compositions/cases.html"     data-start="87.217"  data-duration="32.297" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-7viq" id="compare"   class="scene" data-composition-id="compare"   data-composition-src="compositions/compare.html"   data-start="119.514" data-duration="34.382" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-jzj2" id="demo"      class="scene" data-composition-id="demo"      data-composition-src="compositions/demo.html"      data-start="153.896" data-duration="17.52" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-a95d" id="end"       class="scene" data-composition-id="end"       data-composition-src="compositions/end.html"       data-start="171.416" data-duration="8.513"  data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:1"></div>
+      <div data-hf-id="hf-40so" id="presenter" class="scene" data-composition-id="presenter" data-composition-src="compositions/presenter.html" data-start="0"   data-duration="179.929" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="1080" style="z-index:5"></div>
+      <!-- voice: written by voice/generate_voice.py timeline --write -->
+      <audio id="vo-intro" src="assets/voice/01-intro.mp3" data-start="0.4" data-duration="8.636" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-frontier" src="assets/voice/02-frontier.mp3" data-start="9.436" data-duration="10.435" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-family" src="assets/voice/03-family.mp3" data-start="20.271" data-duration="34.96" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-built" src="assets/voice/04-built.mp3" data-start="55.631" data-duration="31.586" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-cases" src="assets/voice/05-cases.mp3" data-start="87.617" data-duration="31.897" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-compare" src="assets/voice/06-compare.mp3" data-start="119.914" data-duration="33.982" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-demo" src="assets/voice/07-demo.mp3" data-start="154.296" data-duration="17.12" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <audio id="vo-close" src="assets/voice/08-close.mp3" data-start="171.816" data-duration="5.213" data-volume="1" data-track-index="3" data-track-kind="audio"></audio>
+      <!-- /voice -->
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

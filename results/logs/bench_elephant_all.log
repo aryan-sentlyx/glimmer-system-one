@@ -1,0 +1,39 @@
+✓ Initialized. View run at 
+https://modal.com/apps/aryan-59489/main/ap-mirf8t0ozh7ti2zghQlIju
+✓ Created objects.
+├── ✓ Uploaded /Users/aryansrivastava/meta-challenege/src/bench_decisions.py
+├── ✓ Uploaded PythonPackage:glimmer_image, PythonPackage:mvtec_data, 
+│   PythonPackage:decisions_client, PythonPackage:muse_client
+└── ✓ Created Function run_object.
+wrote 1725 rows to ../outputs/decisions/baseten__elephant-1.jsonl
+{
+  "n": 1725,
+  "errors": 0,
+  "noul_auroc": 0.9024606543815512,
+  "noul_acc@0.5": 0.8046376811594202,
+  "noul_brier": 0.14323740394423648,
+  "choice_acc": 0.5252173913043479,
+  "choice_binary_acc": 0.8052173913043478,
+  "latency_p50_s": 0.43377089500427246,
+  "cost_total_usd": 0.07627641,
+  "tokens_mean": 1263.3773913043478,
+  "noul_ece": 0.18052631265485014
+}
+  bottle       n=83 auroc=0.9531746031746032 choice_acc=0.6626506024096386 p50=0.31222009658813477
+  cable        n=150 auroc=0.9325337331334332 choice_acc=0.5133333333333333 p50=0.501654863357544
+  capsule      n=132 auroc=0.9856402074192261 choice_acc=0.6060606060606061 p50=0.36990487575531006
+  carpet       n=117 auroc=0.9975922953451044 choice_acc=0.5555555555555556 p50=0.6312849521636963
+  grid         n=78 auroc=0.9933166248955723 choice_acc=0.6538461538461539 p50=0.36637866497039795
+  hazelnut     n=110 auroc=0.9985714285714287 choice_acc=0.7272727272727273 p50=0.32128024101257324
+  leather      n=124 auroc=0.9993206521739131 choice_acc=0.6209677419354839 p50=0.9122776985168457
+  metal_nut    n=115 auroc=0.8739002932551321 choice_acc=0.48695652173913045 p50=0.25704526901245117
+  pill         n=167 auroc=0.6808510638297872 choice_acc=0.1437125748502994 p50=0.3707921504974365
+  screw        n=160 auroc=0.9108423857347817 choice_acc=0.48125 p50=0.4717139005661011
+  tile         n=117 auroc=0.9974747474747475 choice_acc=0.6495726495726496 p50=0.4740326404571533
+  toothbrush   n=42 auroc=0.9972222222222222 choice_acc=0.9761904761904762 p50=0.43827950954437256
+  transistor   n=100 auroc=0.7795833333333333 choice_acc=0.13 p50=0.44908034801483154
+  wood         n=79 auroc=1.0 choice_acc=0.7468354430379747 p50=0.40056633949279785
+  zipper       n=151 auroc=0.9818802521008403 choice_acc=0.4966887417218543 p50=0.5041420459747314
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/aryan-59489/main/ap-mirf8t0ozh7ti2zghQlIju

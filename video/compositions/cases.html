@@ -1,0 +1,154 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; background: #e9e6e0; font-family: 'IBM Plex Sans', sans-serif; color: #1c1a17; }
+    .label { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675f; }
+    #ca-line { position: absolute; inset: 0; }
+    #ca-hall { position: absolute; inset: 0; }
+    #ca-floor { position: absolute; left: 0; top: 760px; width: 1920px; height: 320px; background: #dedbd4; }
+    .col { position: absolute; top: 0; width: 30px; height: 760px; background: #cfcbc3; }
+    .win { position: absolute; top: 120px; height: 260px; background: #f3f1ec; border: 3px solid #d6d2ca; }
+    #ca-stripe { position: absolute; left: 1240px; top: 560px; width: 30px; height: 60px; background: #f0b429; }
+    #ca-belt { position: absolute; left: 0; top: 600px; width: 1520px; height: 100px; background: #2a2826; overflow: hidden; }
+    #ca-belt .edge { position: absolute; left: 0; top: 0; width: 100%; height: 14px; background: #4a4642; }
+    #ca-stripes { position: absolute; left: 0; top: 14px; width: 10000px; height: 86px; background: repeating-linear-gradient(90deg, #2a2826 0 180px, #3a3733 180px 220px); }
+    .roller { position: absolute; top: 690px; width: 44px; height: 44px; border-radius: 50%; background: #3a3733; border: 4px solid #cfcbc3; }
+    .bottle { position: absolute; top: 420px; width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 4px solid #1c1a17; box-shadow: 0 8px 18px rgba(0,0,0,0.18); background: #1c1a17; }
+    .bottle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #ca-post { position: absolute; left: 1215px; top: 400px; width: 22px; height: 200px; background: #1c1a17; }
+    #ca-lamp { position: absolute; left: 1201px; top: 372px; width: 50px; height: 50px; border-radius: 50%; background: #8a857c; border: 4px solid #1c1a17; }
+    #ca-screen { position: absolute; left: 600px; top: 110px; width: 600px; height: 290px; background: #1c1a17; border-radius: 12px; padding: 22px 26px; color: #ece9e4; overflow: hidden; }
+    #ca-screen .who { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a857c; }
+    #ca-tokens { position: absolute; left: 26px; top: 64px; width: 548px; height: 150px; overflow: hidden; }
+    #ca-tokens .roll { display: flex; flex-wrap: wrap; gap: 8px 6px; align-content: flex-start; }
+    #ca-tokens .roll i { display: block; height: 20px; border-radius: 4px; background: #5a564f; opacity: 0; }
+    #ca-count { position: absolute; left: 26px; bottom: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 30px; color: #ece9e4; }
+    #ca-count b { font-weight: 500; color: #f0b429; }
+    #ca-verdict { position: absolute; left: 26px; top: 64px; width: 548px; height: 200px; opacity: 0; }
+    #ca-verdict .n { font-family: 'IBM Plex Mono', monospace; font-size: 96px; font-weight: 500; color: #5fd38a; line-height: 1; }
+    #ca-verdict .k { font-size: 28px; color: #ece9e4; margin-top: 10px; }
+    #ca-verdict .ms { position: absolute; right: 0; top: 0; font-family: 'IBM Plex Mono', monospace; font-size: 40px; color: #f0b429; }
+    #ca-timer { position: absolute; left: 1240px; top: 90px; width: 600px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 128px; font-weight: 500; letter-spacing: -0.02em; color: #1c1a17; }
+    #ca-timer small { display: block; font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675f; margin-top: -6px; }
+    #ca-text { position: absolute; inset: 0; }
+    #ca-text h2 { position: absolute; left: 100px; top: 110px; font-size: 64px; font-weight: 700; letter-spacing: -0.02em; }
+    .case { position: absolute; top: 240px; width: 760px; height: 600px; border: 3px solid #1c1a17; border-radius: 14px; background: #f4f2ee; padding: 30px 34px; }
+    .case .state { font-family: 'IBM Plex Mono', monospace; font-size: 24px; line-height: 1.4; color: #3d3a35; background: #e9e6e0; border-radius: 8px; padding: 18px 20px; margin-top: 14px; min-height: 130px; }
+    .row { display: flex; align-items: center; gap: 16px; margin-top: 22px; font-size: 26px; }
+    .row .q { flex: 1; }
+    .tag { font-family: 'IBM Plex Mono', monospace; font-size: 18px; padding: 3px 8px; border-radius: 6px; background: #1c1a17; }
+    .tag.noul { color: #5fd38a; } .tag.choice { color: #7cb7e8; } .tag.score { color: #c88fd6; }
+    .row .v { font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 500; min-width: 230px; text-align: right; white-space: nowrap; }
+    .row .v b { color: #c0392b; font-weight: 500; }
+    .case .ms { position: absolute; left: 34px; bottom: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 22px; color: #6b675f; }
+    #ca-agent { left: 300px; } #ca-ticket { left: 1080px; width: 740px; }
+  </style>
+  <div data-hf-id="hf-t3ns" id="root" data-composition-id="cases" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-y0uh" id="ca-line" class="clip" data-start="0" data-duration="24" data-layout-allow-overflow>
+      <div data-hf-id="hf-3qob" id="ca-hall">
+        <div data-hf-id="hf-3nrc" id="ca-floor"></div>
+        <div data-hf-id="hf-6lwo" class="col" style="left:300px"></div><div data-hf-id="hf-n0ox" class="col" style="left:820px"></div><div data-hf-id="hf-frft" class="col" style="left:1340px"></div>
+        <div data-hf-id="hf-wsj8" class="win" style="left:380px;width:380px"></div><div data-hf-id="hf-qa3a" class="win" style="left:900px;width:380px"></div><div data-hf-id="hf-b86w" class="win" style="left:1420px;width:380px"></div>
+        <div data-hf-id="hf-yxvx" id="ca-stripe"></div>
+      </div>
+      <div data-hf-id="hf-vwmx" class="roller" style="left:60px"></div><div data-hf-id="hf-pmxu" class="roller" style="left:340px"></div><div data-hf-id="hf-5xvt" class="roller" style="left:620px"></div><div data-hf-id="hf-dpfo" class="roller" style="left:900px"></div><div data-hf-id="hf-hr7h" class="roller" style="left:1180px"></div><div data-hf-id="hf-jymc" class="roller" style="left:1440px"></div>
+      <div data-hf-id="hf-bso9" id="ca-belt"><div data-hf-id="hf-cc10" id="ca-stripes"></div><div data-hf-id="hf-4eqf" class="edge"></div></div>
+      <div data-hf-id="hf-nx00" id="ca-post"></div><div data-hf-id="hf-qyp4" id="ca-lamp"></div>
+      <div data-hf-id="hf-q6ge" id="ca-screen">
+        <div data-hf-id="hf-csvz" class="who" id="ca-who">Muse Spark 1.3 · reasoning</div>
+        <div data-hf-id="hf-ayzc" id="ca-tokens"><div data-hf-id="hf-wtpl" class="roll" id="ca-roll"></div></div>
+        <div data-hf-id="hf-2idx" id="ca-count"><b data-hf-id="hf-sqbz">0</b> reasoning tokens</div>
+        <div data-hf-id="hf-z5z1" id="ca-verdict"><div data-hf-id="hf-6ikq" class="n">1.0%</div><div data-hf-id="hf-akxs" class="k">defective · the same bottle</div><div data-hf-id="hf-wspl" class="ms">45 ms</div></div>
+      </div>
+      <div data-hf-id="hf-t5gp" class="bottle" id="ca-b0"><img data-hf-id="hf-dr3e" src="assets/bottles/bottle_good_2.png" alt="" /></div>
+      <div data-hf-id="hf-sdsw" class="bottle" id="ca-b1"><img data-hf-id="hf-oxeg" src="assets/bottles/bottle_broken_large_0.png" alt="" /></div>
+      <div data-hf-id="hf-39aj" class="bottle" id="ca-b2"><img data-hf-id="hf-uvip" src="assets/bottles/bottle_contamination_6.png" alt="" /></div>
+      <div data-hf-id="hf-zb6i" class="bottle" id="ca-b3"><img data-hf-id="hf-uaia" src="assets/bottles/bottle_broken_small_13.png" alt="" /></div>
+      <div data-hf-id="hf-gjgt" class="bottle" id="ca-b4"><img data-hf-id="hf-pm3y" src="assets/bottles/bottle_good_2.png" alt="" /></div>
+      <div data-hf-id="hf-frt0" class="bottle" id="ca-b5"><img data-hf-id="hf-09rk" src="assets/bottles/bottle_broken_large_0.png" alt="" /></div>
+      <div data-hf-id="hf-ofov" class="bottle" id="ca-b6"><img data-hf-id="hf-3on9" src="assets/bottles/bottle_contamination_6.png" alt="" /></div>
+      <div data-hf-id="hf-h5at" id="ca-timer"><span data-hf-id="hf-5ili" id="ca-t">0.00 s</span><small data-hf-id="hf-yuob">time per part</small></div>
+    </div>
+    <div data-hf-id="hf-ha3l" id="ca-text" class="clip" data-start="24" data-duration="8.3">
+      <h2 data-hf-id="hf-a7zv" style="left:300px">No picture? The same model, text only.</h2>
+      <div data-hf-id="hf-c74a" class="case" id="ca-agent">
+        <div data-hf-id="hf-t2s2" class="label">Agent safety gate</div>
+        <div data-hf-id="hf-4kn9" class="state">Task from the user: clean up the Downloads folder.<br data-hf-id="hf-x5px"/>The agent wants to run: rm -rf ~/Documents/*</div>
+        <div data-hf-id="hf-thy4" class="row"><span data-hf-id="hf-vct9" class="tag noul">noul</span><span data-hf-id="hf-g9kq" class="q">The action is outside the task.</span><span data-hf-id="hf-3x9f" class="v">99.96%</span></div>
+        <div data-hf-id="hf-lt04" class="row"><span data-hf-id="hf-g8tt" class="tag noul">noul</span><span data-hf-id="hf-zrk6" class="q">The action deletes user data.</span><span data-hf-id="hf-xb6z" class="v">99.3%</span></div>
+        <div data-hf-id="hf-km31" class="row"><span data-hf-id="hf-qwfb" class="tag choice">choice</span><span data-hf-id="hf-kpq5" class="q">What should the gate do?</span><span data-hf-id="hf-k95n" class="v"><b data-hf-id="hf-4o3m">block</b> · 77%</span></div>
+        <div data-hf-id="hf-l0e2" class="row"><span data-hf-id="hf-eypl" class="tag score">score</span><span data-hf-id="hf-3gd6" class="q">How risky is the action?</span><span data-hf-id="hf-lg9t" class="v"><b data-hf-id="hf-xga0">critical</b> · 80%</span></div>
+        <div data-hf-id="hf-ntvw" class="ms">forward 94 ms · 6 prompts · one pass</div>
+      </div>
+      <div data-hf-id="hf-f9if" class="case" id="ca-ticket">
+        <div data-hf-id="hf-wobe" class="label">Ticket triage</div>
+        <div data-hf-id="hf-m2u2" class="state">Ticket #4821: I was charged twice for my October subscription. The second charge was $49 on Oct 3. Please refund it today, I need the money for rent.</div>
+        <div data-hf-id="hf-mzx7" class="row"><span data-hf-id="hf-0j0n" class="tag choice">choice</span><span data-hf-id="hf-cvnn" class="q">Which team should take this?</span><span data-hf-id="hf-k4bc" class="v">billing · 51%</span></div>
+        <div data-hf-id="hf-ne88" class="row"><span data-hf-id="hf-kxsd" class="tag score">score</span><span data-hf-id="hf-cf3k" class="q">How urgent is this ticket?</span><span data-hf-id="hf-i9yg" class="v">high · 69%</span></div>
+        <div data-hf-id="hf-m7b5" class="row"><span data-hf-id="hf-04pm" class="tag choice">choice</span><span data-hf-id="hf-ilmg" class="q">What is the tone of the customer?</span><span data-hf-id="hf-6qu9" class="v">frustrated · 79%</span></div>
+        <div data-hf-id="hf-x08m" class="ms">forward 136 ms · 9 prompts · one pass</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // token blocks with seeded widths (deterministic)
+    const roll = document.getElementById("ca-roll");
+    let seed = 7; const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+    for (let i = 0; i < 170; i++) { const b = document.createElement("i"); b.style.width = (18 + Math.floor(rnd() * 70)) + "px"; roll.appendChild(b); }
+
+    const SPEED = 220, GATE = 1100, STOP = 8.0, GO = 21.8, END = 24.0;
+    const bottles = [0,1,2,3,4,5,6].map(i => "#ca-b" + i);
+    // belt stripes: run, stop, run
+    tl.fromTo("#ca-stripes", { x: 0 }, { x: -SPEED * STOP, duration: STOP, ease: "none" }, 0);
+    tl.to("#ca-stripes", { x: -SPEED * STOP - SPEED * (END - GO), duration: END - GO, ease: "none" }, GO);
+    // bottles: x = start + SPEED * t while the belt runs; the start is set so bottle 0 reaches the gate at STOP
+    bottles.forEach((b, i) => {
+      const x0 = GATE - SPEED * STOP - 220 * i - 90;      // centre on the gate at STOP (the bottle is 180 wide)
+      tl.fromTo(b, { x: x0 }, { x: x0 + SPEED * STOP, duration: STOP, ease: "none" }, 0);
+      tl.to(b, { x: x0 + SPEED * STOP + SPEED * (END - GO), duration: END - GO, ease: "none" }, GO);
+    });
+    // the belt stops with a small settle on the bottles
+    tl.to(bottles, { rotation: -4, duration: 0.12, ease: "power2.out", transformOrigin: "50% 100%" }, STOP);
+    tl.to(bottles, { rotation: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" }, STOP + 0.12);
+    // Spark thinks: lamp amber, token blocks, counter and timer over 8 s
+    tl.to("#ca-lamp", { backgroundColor: "#f0b429", duration: 0.2 }, STOP + 0.2);
+    tl.fromTo("#ca-timer", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, STOP + 0.1);
+    const T0 = STOP + 0.3, THINK = 8.0;
+    tl.to("#ca-roll i", { opacity: 1, duration: 0.05, stagger: THINK / 170, ease: "none" }, T0);
+    tl.fromTo("#ca-roll", { y: 0 }, { y: -330, duration: THINK, ease: "none" }, T0);
+    const cnt = { v: 0 }, el = document.getElementById("ca-count").querySelector("b");
+    tl.to(cnt, { v: 1144, duration: THINK, ease: "none", onUpdate: () => { el.textContent = Math.round(cnt.v).toLocaleString("en-US"); } }, T0);
+    const tim = { v: 0 }, te = document.getElementById("ca-t");
+    tl.to(tim, { v: 8.0, duration: THINK, ease: "none", onUpdate: () => { te.textContent = tim.v.toFixed(2) + " s"; } }, T0);
+    tl.to("#ca-t", { color: "#c0392b", duration: 0.2 }, T0 + THINK - 0.4);
+    tl.fromTo("#ca-timer", { scale: 1 }, { scale: 1.06, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.inOut", transformOrigin: "50% 50%" }, T0 + THINK);
+    // System One: the screen flips to one number
+    const S1 = 18.8;
+    tl.to("#ca-tokens, #ca-count", { opacity: 0, duration: 0.2 }, S1);
+    tl.set("#ca-who", { textContent: "Glimmer System One · one pass" }, S1 + 0.1);
+    tl.to("#ca-verdict", { opacity: 1, duration: 0.25 }, S1 + 0.2);
+    tl.fromTo("#ca-verdict .n", { scale: 0.7 }, { scale: 1, duration: 0.5, ease: "back.out(1.8)", transformOrigin: "0 50%" }, S1 + 0.2);
+    tl.to("#ca-lamp", { backgroundColor: "#5fd38a", duration: 0.15 }, S1 + 0.2);
+    tl.to("#ca-t", { color: "#1c1a17", textContent: "0.05 s", duration: 0 }, S1 + 0.2);
+    tl.to("#ca-timer small", { textContent: "time per part · System One", duration: 0 }, S1 + 0.2);
+    // the belt runs again: the lamp blinks green for every bottle that passes the gate (every 1 s at 220 px/s)
+    for (let k = 0; k < 2; k++) {
+      tl.to("#ca-lamp", { scale: 1.3, duration: 0.08, yoyo: true, repeat: 1, transformOrigin: "50% 50%" }, GO + 1.0 * k + 0.5);
+    }
+    tl.to("#ca-line", { opacity: 0, duration: 0.3, ease: "power3.in" }, END - 0.3);
+    // the text-only cases
+    tl.fromTo("#ca-text h2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, 24.1);
+    tl.fromTo("#ca-agent", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 25.6);
+    tl.fromTo("#ca-agent .row", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.5 }, 26.4);
+    tl.fromTo("#ca-ticket", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 29.0);
+    tl.fromTo("#ca-ticket .row", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.5 }, 29.8);
+    tl.to("#ca-text > *", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 32.1);
+    window.__timelines["cases"] = tl;
+  </script>
+</template>

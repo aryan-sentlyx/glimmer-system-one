@@ -1,0 +1,26 @@
+bottle_000_broken_large_1.png            spark_default   4.27s  spark_low   3.88s  glimmer  2.30s (server 0.38s)
+bottle_001_broken_large_1.png            spark_default   4.82s  spark_low   3.68s  glimmer  2.25s (server 0.36s)
+bottle_002_good_0.png                    spark_default  19.22s  spark_low   7.52s  glimmer  2.45s (server 0.36s)
+bottle_006_contamination_1.png           spark_default  12.30s  spark_low   8.08s  glimmer  2.26s (server 0.37s)
+bottle_008_good_0.png                    spark_default  12.22s  spark_low   6.33s  glimmer  2.23s (server 0.36s)
+bottle_009_broken_large_1.png            spark_default   6.01s  spark_low   3.16s  glimmer  2.28s (server 0.36s)
+bottle_013_broken_small_1.png            spark_default   7.65s  spark_low   4.83s  glimmer  2.21s (server 0.36s)
+bottle_014_broken_small_1.png            spark_default   8.56s  spark_low   5.00s  glimmer  2.36s (server 0.36s)
+bottle_015_broken_small_1.png            spark_default  10.47s  spark_low   4.97s  glimmer  3.17s (server 0.36s)
+bottle_017_good_0.png                    spark_default   8.85s  spark_low   4.22s  glimmer  2.18s (server 0.36s)
+bottle_020_broken_small_1.png            spark_default  11.59s  spark_low   6.17s  glimmer  2.29s (server 0.36s)
+bottle_021_contamination_1.png           spark_default  11.97s  spark_low   5.03s  glimmer  2.24s (server 0.36s)
+bottle_022_broken_small_1.png            spark_default   8.98s  spark_low   3.96s  glimmer  2.29s (server 0.37s)
+bottle_023_broken_small_1.png            spark_default   3.85s  spark_low   3.96s  glimmer  2.52s (server 0.38s)
+bottle_024_contamination_1.png           spark_default  16.78s  spark_low   5.57s  glimmer  2.30s (server 0.37s)
+bottle_025_contamination_1.png           spark_default  26.27s  spark_low   5.69s  glimmer  2.39s (server 0.37s)
+bottle_026_contamination_1.png           spark_default  15.48s  spark_low   6.28s  glimmer  2.23s (server 0.36s)
+bottle_027_contamination_1.png           spark_default  10.21s  spark_low   5.10s  glimmer  2.31s (server 0.36s)
+bottle_030_broken_large_1.png            spark_default  12.93s  spark_low   6.33s  glimmer  2.29s (server 0.36s)
+bottle_031_contamination_1.png           spark_default  10.78s  spark_low   5.71s  glimmer  2.33s (server 0.36s)
+
+| system | n | p50 round trip | p90 round trip | server time p50 | acc (defective) |
+|---|---|---|---|---|---|
+| spark_default | 20 | 10.62s | 16.78s | nans | 75% |
+| spark_low | 20 | 5.06s | 6.33s | nans | 80% |
+| glimmer | 20 | 2.29s | 2.45s | 0.36s | 95% |

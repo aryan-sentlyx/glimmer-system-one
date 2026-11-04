@@ -1,0 +1,11 @@
+[project]
+name = "glimmer-demo-backend"
+version = "0.1.0"
+description = "FastAPI backend of the Glimmer System One demo, on Modal"
+requires-python = ">=3.12"
+dependencies = [
+    "modal>=1.6.3",
+    "fastapi[standard]>=0.115",
+    "pillow>=11",
+    "python-dotenv>=1.0",
+]

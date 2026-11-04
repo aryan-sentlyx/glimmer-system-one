@@ -1,0 +1,114 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; background: #e9e6e0; font-family: 'IBM Plex Sans', sans-serif; color: #1c1a17; }
+    .label { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675f; }
+    #co-head { position: absolute; left: 100px; top: 90px; }
+    #co-head h1 { font-size: 64px; font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; }
+    #co-table { position: absolute; left: 100px; top: 240px; width: 1500px; border-collapse: collapse; font-size: 30px; }
+    #co-table th { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b675f; text-align: left; padding: 14px 18px; border-bottom: 3px solid #1c1a17; }
+    #co-table td { padding: 18px 18px; border-bottom: 2px solid #cfcbc3; font-family: 'IBM Plex Mono', monospace; font-size: 30px; }
+    #co-table td:first-child { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; }
+    #co-table tr.hero td { background: #f7edcf; }
+    #co-table tr.hero td:first-child { color: #1c1a17; }
+    #co-table td.open { color: #2e8b57; } #co-table td.closed { color: #c0392b; }
+    #co-table th.ece, #co-table td.ece { background: rgba(240,180,41,0); }
+    #co-chart { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #co-chart h1 { position: absolute; left: 100px; top: 98px; font-size: 56px; font-weight: 700; letter-spacing: -0.02em; }
+    #co-chart .label { position: absolute; left: 100px; top: 70px; }
+    #co-svg { position: absolute; left: 330px; top: 230px; width: 660px; height: 700px; overflow: visible; font-family: 'IBM Plex Sans', sans-serif; }
+    #co-svg text { font-size: 22px; fill: #6b675f; }
+    #co-svg .ax { stroke: #1c1a17; stroke-width: 3; }
+    #co-svg .grid { stroke: #cfcbc3; stroke-width: 1.5; }
+    #co-svg .diag { stroke: #6b675f; stroke-width: 3; stroke-dasharray: 12 10; fill: none; }
+    #co-svg .head { stroke: #f0b429; stroke-width: 6; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+    #co-svg .spark { stroke: #8a857c; stroke-width: 6; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+    #co-svg .dh { fill: #f0b429; stroke: #1c1a17; stroke-width: 2; }
+    #co-svg .ds { fill: #8a857c; stroke: #1c1a17; stroke-width: 2; }
+    .legend { position: absolute; left: 1120px; font-size: 30px; font-weight: 600; display: flex; align-items: center; gap: 16px; }
+    .legend i { display: block; width: 46px; height: 8px; border-radius: 4px; }
+    #co-lh { top: 220px; } #co-ls { top: 280px; }
+    #co-lh i { background: #f0b429; } #co-ls i { background: #8a857c; }
+    .call { position: absolute; left: 1120px; width: 700px; border-left: 6px solid #1c1a17; padding: 10px 0 10px 26px; }
+    .call .big { font-family: 'IBM Plex Mono', monospace; font-size: 48px; font-weight: 500; }
+    .call .big b { font-weight: 500; }
+    .call .t { font-size: 28px; color: #3d3a35; margin-top: 6px; }
+    #co-c1 { top: 380px; border-color: #f0b429; } #co-c1 .big b { color: #d59a0a; }
+    #co-c2 { top: 580px; border-color: #8a857c; } #co-c2 .big b { color: #c0392b; }
+    #co-foot { position: absolute; left: 1120px; top: 780px; width: 480px; font-size: 22px; color: #6b675f; line-height: 1.4; }
+  </style>
+  <div data-hf-id="hf-y43a" id="root" data-composition-id="compare" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-qg7x" id="co-head" class="clip" data-start="0" data-duration="25.9"><div data-hf-id="hf-1zqa" class="label">All 1,725 test images of MVTec AD · 15 products</div><h1 data-hf-id="hf-9mtn">How it compares</h1></div>
+    <table data-hf-id="hf-gp7b" id="co-table" class="clip" data-start="0.8" data-duration="25.1">
+      <thead data-hf-id="hf-zd89"><tr data-hf-id="hf-p3r7"><th data-hf-id="hf-hyy8">System</th><th data-hf-id="hf-mwj5">AUROC</th><th data-hf-id="hf-xdco">Accuracy</th><th data-hf-id="hf-2lrg" class="ece">Calibration error</th><th data-hf-id="hf-47hp">Per image</th><th data-hf-id="hf-tl3x">Open</th></tr></thead>
+      <tbody data-hf-id="hf-bsvf">
+        <tr data-hf-id="hf-09mn" class="hero"><td data-hf-id="hf-qpfp">Glimmer System One · head, held-out half</td><td data-hf-id="hf-as1q">0.962</td><td data-hf-id="hf-y2wr">90.2%</td><td data-hf-id="hf-b0c7" class="ece">0.045</td><td data-hf-id="hf-lc3q">45 ms</td><td data-hf-id="hf-9g0g" class="open">yes</td></tr>
+        <tr data-hf-id="hf-gudb" class="hero"><td data-hf-id="hf-kfpu">Glimmer System One · early exit, layer 13</td><td data-hf-id="hf-a50f">0.954</td><td data-hf-id="hf-a5a9">88.3%</td><td data-hf-id="hf-yw4r" class="ece">0.034</td><td data-hf-id="hf-qoco">21 ms</td><td data-hf-id="hf-e4a0" class="open">yes</td></tr>
+        <tr data-hf-id="hf-ddj7"><td data-hf-id="hf-w307">Liquid d1-ultra</td><td data-hf-id="hf-pzyf">0.929</td><td data-hf-id="hf-i0gb">83.2%</td><td data-hf-id="hf-mb42" class="ece">0.147</td><td data-hf-id="hf-ngy0">0.46 s</td><td data-hf-id="hf-e53e" class="closed">no</td></tr>
+        <tr data-hf-id="hf-cz86"><td data-hf-id="hf-nbll">TypeSafe Jev 1.14</td><td data-hf-id="hf-x2m6">0.917</td><td data-hf-id="hf-twmp">85.2%</td><td data-hf-id="hf-rthy" class="ece">0.125</td><td data-hf-id="hf-4xy6">0.31 s</td><td data-hf-id="hf-972m" class="closed">no</td></tr>
+        <tr data-hf-id="hf-ckx5"><td data-hf-id="hf-zgfb">Baseten Elephant 1</td><td data-hf-id="hf-vwnc">0.902</td><td data-hf-id="hf-3xgb">80.5%</td><td data-hf-id="hf-6owc" class="ece">0.181</td><td data-hf-id="hf-u4un">0.43 s</td><td data-hf-id="hf-9ldn" class="open">yes</td></tr>
+        <tr data-hf-id="hf-c6m4"><td data-hf-id="hf-s83i">Muse Spark 1.3 · default reasoning</td><td data-hf-id="hf-4ybk">0.872</td><td data-hf-id="hf-pt66">82.6%</td><td data-hf-id="hf-8ues" class="ece">0.101</td><td data-hf-id="hf-44gw">8.0 s</td><td data-hf-id="hf-9zoo" class="closed">no</td></tr>
+      </tbody>
+    </table>
+    <div data-hf-id="hf-je3x" id="co-chart" class="clip" data-start="25.7" data-duration="8.68">
+      <div data-hf-id="hf-8oyr" class="label">The held-out half · 866 images · 10 bins</div>
+      <h1 data-hf-id="hf-o7xk">Does the number mean what it says?</h1>
+      <svg data-hf-id="hf-nq04" id="co-svg" viewBox="0 0 720 760">
+        <g data-hf-id="hf-w5rl" class="g">
+          <line data-hf-id="hf-w3ss" class="grid" x1="0" y1="0" x2="720" y2="0"/><line data-hf-id="hf-jol2" class="grid" x1="0" y1="180" x2="720" y2="180"/><line data-hf-id="hf-xayi" class="grid" x1="0" y1="360" x2="720" y2="360"/><line data-hf-id="hf-kqm6" class="grid" x1="0" y1="540" x2="720" y2="540"/>
+          <line data-hf-id="hf-ovqy" class="grid" x1="180" y1="0" x2="180" y2="720"/><line data-hf-id="hf-mjje" class="grid" x1="360" y1="0" x2="360" y2="720"/><line data-hf-id="hf-ch9u" class="grid" x1="540" y1="0" x2="540" y2="720"/><line data-hf-id="hf-negi" class="grid" x1="720" y1="0" x2="720" y2="720"/>
+          <line data-hf-id="hf-90fd" class="ax" x1="0" y1="720" x2="720" y2="720"/><line data-hf-id="hf-1x9r" class="ax" x1="0" y1="0" x2="0" y2="720"/>
+          <text data-hf-id="hf-61m4" x="-8" y="726" text-anchor="end">0%</text><text data-hf-id="hf-x66x" x="-8" y="366" text-anchor="end">50%</text><text data-hf-id="hf-rkeq" x="-8" y="8" text-anchor="end">100%</text>
+          <text data-hf-id="hf-82th" x="0" y="752">0%</text><text data-hf-id="hf-1kzo" x="360" y="752" text-anchor="middle">50%</text><text data-hf-id="hf-3tzw" x="720" y="752" text-anchor="end">100%</text>
+          <text data-hf-id="hf-2f61" x="360" y="790" text-anchor="middle" style="font-size:26px;fill:#1c1a17;font-weight:600">what the model says</text>
+          <text data-hf-id="hf-7vv2" x="-78" y="360" text-anchor="middle" transform="rotate(-90 -78 360)" style="font-size:26px;fill:#1c1a17;font-weight:600">share actually defective</text>
+        </g>
+        <path data-hf-id="hf-1u2l" id="co-diag" class="diag" d="M0 720 L720 0"/>
+        <path data-hf-id="hf-ai0b" id="co-spark" class="spark" d="M36 461 L86 288 L540 101 L619 108 L670 50"/>
+        <path data-hf-id="hf-lbap" id="co-headp" class="head" d="M14 648 L108 454 L187 554 L238 598 L324 338 L396 338 L461 338 L547 209 L612 194 L713 14"/>
+        <g data-hf-id="hf-42zy" id="co-dots-s"><circle data-hf-id="hf-4c09" class="ds" cx="36" cy="461" r="9"/><circle data-hf-id="hf-4iir" class="ds" cx="86" cy="288" r="9"/><circle data-hf-id="hf-6s94" class="ds" cx="540" cy="101" r="9"/><circle data-hf-id="hf-5fei" class="ds" cx="619" cy="108" r="9"/><circle data-hf-id="hf-avcd" class="ds" cx="670" cy="50" r="9"/></g>
+        <g data-hf-id="hf-afol" id="co-dots-h"><circle data-hf-id="hf-k461" class="dh" cx="14" cy="648" r="9"/><circle data-hf-id="hf-hdyw" class="dh" cx="108" cy="454" r="9"/><circle data-hf-id="hf-fcbc" class="dh" cx="187" cy="554" r="9"/><circle data-hf-id="hf-ix5v" class="dh" cx="238" cy="598" r="9"/><circle data-hf-id="hf-h5g1" class="dh" cx="324" cy="338" r="9"/><circle data-hf-id="hf-v3no" class="dh" cx="396" cy="338" r="9"/><circle data-hf-id="hf-fmfn" class="dh" cx="461" cy="338" r="9"/><circle data-hf-id="hf-6u6x" class="dh" cx="547" cy="209" r="12"/><circle data-hf-id="hf-9wgb" class="dh" cx="612" cy="194" r="9"/><circle data-hf-id="hf-rjb8" class="dh" cx="713" cy="14" r="9"/></g>
+      </svg>
+      <div data-hf-id="hf-a6y4" class="legend" id="co-lh"><i data-hf-id="hf-wt6k"></i>Glimmer System One</div>
+      <div data-hf-id="hf-qkjs" class="legend" id="co-ls"><i data-hf-id="hf-zeb8"></i>Muse Spark 1.3</div>
+      <div data-hf-id="hf-t07t" class="call" id="co-c1"><div data-hf-id="hf-fndy" class="big">says <b data-hf-id="hf-309r">76%</b> → 71% defective</div><div data-hf-id="hf-ok0r" class="t">System One, 21 parts in that bin</div></div>
+      <div data-hf-id="hf-wybu" class="call" id="co-c2"><div data-hf-id="hf-4kgd" class="big">says <b data-hf-id="hf-rglr">5%</b> → 36% defective</div><div data-hf-id="hf-nh1i" class="t">Spark, 288 parts in that bin</div></div>
+      <div data-hf-id="hf-2lkr" id="co-foot">The dashed line is a perfect model. Closer is better.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const blurIn = (sel, at, dur = 0.3, stagger = 0) => tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: dur, stagger, ease: "power2.out" }, at);
+    const out = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, at);
+    blurIn("#co-head > *", 0.1, 0.3, 0.1);
+    tl.fromTo("#co-table thead th", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.05 }, 0.9);
+    tl.fromTo("#co-table tbody tr", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.4, ease: "expo.out" }, 1.6);
+    // the calibration column: a pulse of the accent when the narration reaches it
+    tl.to("#co-table td.ece, #co-table th.ece", { backgroundColor: "rgba(240,180,41,0.28)", duration: 0.4 }, 12.4);
+    tl.to("#co-table tr.hero td.ece", { backgroundColor: "rgba(240,180,41,0.85)", duration: 0.4 }, 12.8);
+    tl.to("#co-table td.ece", { backgroundColor: "rgba(240,180,41,0.5)", duration: 0.3, yoyo: true, repeat: 1 }, 24.6);
+    out("#co-head > *, #co-table", 25.6);
+    // the chart
+    blurIn("#co-chart .label, #co-chart h1", 25.8, 0.3, 0.15);
+    tl.fromTo("#co-svg .g", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 26.0);
+    tl.fromTo("#co-diag", { strokeDasharray: "12 10", strokeDashoffset: 0, opacity: 0 }, { opacity: 1, duration: 0.4 }, 26.3);
+    tl.fromTo("#co-headp", { strokeDasharray: 1400, strokeDashoffset: 1400 }, { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 26.6);
+    tl.fromTo("#co-dots-h circle", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.08, ease: "back.out(2)", transformOrigin: "50% 50%" }, 26.7);
+    tl.fromTo("#co-lh", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 26.9);
+    tl.fromTo("#co-spark", { strokeDasharray: 1100, strokeDashoffset: 1100 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 27.6);
+    tl.fromTo("#co-dots-s circle", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.08, ease: "back.out(2)", transformOrigin: "50% 50%" }, 27.7);
+    tl.fromTo("#co-ls", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 27.9);
+    tl.fromTo("#co-c1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 28.6);
+    tl.fromTo("#co-dots-h circle:nth-child(8)", { scale: 1 }, { scale: 1.8, duration: 0.3, yoyo: true, repeat: 3, ease: "power2.inOut", transformOrigin: "50% 50%" }, 28.7);
+    tl.fromTo("#co-c2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 30.6);
+    tl.fromTo("#co-dots-s circle:nth-child(1)", { scale: 1 }, { scale: 1.8, duration: 0.3, yoyo: true, repeat: 3, ease: "power2.inOut", transformOrigin: "50% 50%" }, 30.7);
+    blurIn("#co-foot", 31.8);
+    out("#co-chart > *", 34.2);
+    window.__timelines["compare"] = tl;
+  </script>
+</template>

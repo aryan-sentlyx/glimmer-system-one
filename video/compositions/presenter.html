@@ -1,0 +1,100 @@
+<template>
+  <style>
+    @font-face{font-family:'IBM Plex Sans';font-weight:100 700;font-style:normal;src:url('assets/fonts/IBMPlexSans-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-style:normal;src:url('assets/fonts/IBMPlexMono-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexMono-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:500;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:600;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-600.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Sans Condensed';font-weight:700;font-style:normal;src:url('assets/fonts/IBMPlexSansCondensed-700.woff2') format('woff2');}
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    #pr-wrap { position: absolute; inset: 0; }
+    #pr-fig { position: absolute; left: 0; top: 0; width: 300px; height: 560px; }
+    #pr-fig svg { width: 300px; height: 560px; overflow: visible; color: #1c1a17; }
+    #pr-fig line { stroke: currentColor; stroke-width: 7; stroke-linecap: round; }
+    #pr-shadow { fill: rgba(0,0,0,0.14); }
+  </style>
+  <div data-hf-id="hf-ilu5" id="root" data-composition-id="presenter" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-nwuj" id="pr-wrap" class="clip" data-start="0" data-duration="179.93" data-layout-allow-overflow>
+      <div data-hf-id="hf-drxy" id="pr-fig">
+        <svg data-hf-id="hf-9b3v" viewBox="0 0 300 560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs data-hf-id="hf-mh0t">
+            <clipPath data-hf-id="hf-q7o6" id="pr-clip"><circle data-hf-id="hf-qzyl" cx="150" cy="90" r="84" /></clipPath>
+          </defs>
+          <ellipse data-hf-id="hf-sqn2" id="pr-shadow" cx="150" cy="548" rx="90" ry="12" />
+          <g data-hf-id="hf-zej5" id="pr-legs">
+            <g data-hf-id="hf-m48u" id="pr-legL"><line data-hf-id="hf-l8h0" x1="150" y1="350" x2="105" y2="536" /><line data-hf-id="hf-y2ab" x1="105" y1="536" x2="78" y2="536" /></g>
+            <g data-hf-id="hf-2kvc" id="pr-legR"><line data-hf-id="hf-17er" x1="150" y1="350" x2="195" y2="536" /><line data-hf-id="hf-m8nf" x1="195" y1="536" x2="222" y2="536" /></g>
+          </g>
+          <line data-hf-id="hf-9rph" id="pr-body" x1="150" y1="172" x2="150" y2="352" />
+          <g data-hf-id="hf-snm4" id="pr-armL"><line data-hf-id="hf-eanf" x1="150" y1="205" x2="90" y2="320" /></g>
+          <g data-hf-id="hf-3ml6" id="pr-armR"><line data-hf-id="hf-x8kr" x1="150" y1="205" x2="210" y2="320" /></g>
+          <g data-hf-id="hf-zw74" id="pr-head">
+            <image data-hf-id="hf-noud" xlink:href="assets/headshot.png" href="assets/headshot.png" x="65.4" y="-0.4" width="169.3" height="203.5" clip-path="url(#pr-clip)" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const fig = "#pr-fig", head = "#pr-head", armL = "#pr-armL", armR = "#pr-armR", legL = "#pr-legL", legR = "#pr-legR", svg = "#pr-fig svg";
+    const SH = { svgOrigin: "150 205" }, LEG = { svgOrigin: "150 350" }, HD = { svgOrigin: "150 172" };
+    gsap.set([armL, armR], { ...SH, rotation: 0 }); gsap.set([legL, legR], { ...LEG, rotation: 0 }); gsap.set(head, { ...HD, rotation: 0, y: 0 });
+
+    // the whole film: a small head bob while the presenter speaks (acting, finite repeats)
+    tl.fromTo(head, { y: 0 }, { y: 3, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 599 }, 0);
+
+    // walk: legs swing for a given window
+    function walk(at, dur) {
+      const n = Math.round(dur / 0.22);
+      tl.to(legL, { rotation: 16, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: n - 1 }, at);
+      tl.to(legR, { rotation: -16, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: n - 1 }, at);
+      tl.to(armL, { rotation: -12, duration: 0.22, ease: "sine.inOut", yoyo: true, repeat: n - 1 }, at);
+      tl.set(legL, { rotation: 0 }, at + dur + 0.01); tl.set(legR, { rotation: 0 }, at + dur + 0.01); tl.set(armL, { rotation: 0 }, at + dur + 0.01);
+    }
+    // a pointing gesture: anticipation back, then settle on the angle
+    function point(at, angle, hold) {
+      tl.to(armR, { rotation: -angle * 0.15, duration: 0.14, ease: "power2.in" }, at);
+      tl.to(armR, { rotation: angle, duration: 0.45, ease: "back.out(1.6)" }, at + 0.14);
+      tl.to(armR, { rotation: 0, duration: 0.4, ease: "power2.inOut" }, at + hold);
+    }
+    function moveTo(at, x, y, s, dur) { tl.to(fig, { x, y, scale: s, duration: dur, ease: "power2.inOut" }, at); }
+    function ink(at, c) { tl.to(svg, { color: c, duration: 0.4, ease: "power2.inOut" }, at); }
+
+    // 1. who I am: walks in from the left, large
+    gsap.set(fig, { x: -420, y: 280, scale: 0.86, transformOrigin: "0 0" });
+    moveTo(0, 420, 280, 0.86, 2.0); walk(0, 2.0);
+    tl.to(head, { rotation: -4, duration: 0.2, ease: "power2.out" }, 1.8); tl.to(head, { rotation: 0, duration: 0.6, ease: "power2.out" }, 2.0);
+    point(2.4, -78, 2.0);          // towards the name, on the right
+    // 2. push the frontier
+    point(11.4, -82, 5.0);
+    tl.to(head, { rotation: 5, duration: 0.5, ease: "power2.out" }, 18.4);
+    tl.to(head, { rotation: 0, duration: 0.5, ease: "power2.inOut" }, 19.2);
+    // 3. the family: small, bottom-left
+    moveTo(19.4, 70, 740, 0.55, 1.0);
+    point(21.1, -80, 5.0); point(30.4, -85, 3.0); point(44.4, -75, 4.0);
+    // 4. what I built: dark world
+    ink(54.8, "#ece9e4");
+    point(56.6, -85, 2.5); point(73.4, -75, 6.0); point(80.0, -70, 4.0);
+    // 5. the line: the inspector at the end of the belt, light world
+    ink(86.9, "#1c1a17"); moveTo(86.8, 1590, 560, 0.68, 1.0);
+    tl.to(head, { rotation: -9, duration: 0.5, ease: "power2.out" }, 88.2);   // looks left at the bottle
+    tl.to(head, { rotation: 4, duration: 7.2, ease: "none" }, 88.8);                                  // follows it to the gate
+    tl.to(head, { rotation: -12, duration: 0.5, ease: "power2.inOut" }, 97.0);                       // looks at the token wall
+    tl.to(head, { rotation: 0, duration: 0.5, ease: "power2.inOut" }, 105.8);
+    point(106.0, 100, 2.0);
+    moveTo(109.4, 70, 740, 0.55, 1.0);
+    point(112.8, -80, 3.0); point(116.2, -80, 2.5);
+    // 6. compare: bottom-right, the table and the chart sit left
+    moveTo(119.0, 1640, 740, 0.55, 1.0);
+    point(121.0, 75, 8.0); point(145.4, 90, 6.0);
+    // 7. demo: dark world, bottom-right
+    ink(153.4, "#ece9e4"); moveTo(153.3, 1560, 740, 0.55, 1.0);
+    point(155.0, 110, 5.0); point(161.0, 95, 6.0);
+    // 8. end: walks to the centre-left with the mark
+    moveTo(171.4, 380, 280, 0.86, 1.2); walk(171.4, 1.2);
+    point(173.0, -80, 5.5);
+
+    window.__timelines["presenter"] = tl;
+  </script>
+</template>
